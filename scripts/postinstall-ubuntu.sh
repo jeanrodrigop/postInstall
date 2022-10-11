@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# ubuntu-postinstall.sh - Install and configure programs for my personal use (Ubuntu - minimal installation)
+# postinstall-ubuntu.sh - Install and configure programs for my personal use (Ubuntu - minimal installation)
 #
-# Autor:         Jean Rodrigo
+# Build:         Jean Rodrigo
 #
 # ------------------------------------------------------------------------ #
 #
