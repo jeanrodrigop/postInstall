@@ -10,13 +10,14 @@ This is a **post installation** shell script set up for my personal use, you can
 <hr>
 
 ## How to run on Linux
-To get started, download the script for your system:
+To get started, download the script for your system:<br>
+(Change the [OS-NAME] like "postinstall-ubuntu.sh")
 ```bash
 # wget
-$ wget https://raw.githubusercontent.com/jeanrodrigop/postInstall/master/README.md
+$ wget https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scritps/postinstall-[OS-NAME].sh
 
 # curl
-$ curl -O https://raw.githubusercontent.com/jeanrodrigop/postInstall/master/README.md
+$ curl -O https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scritps/postinstall-[OS-NAME].sh
 ```
 After the download, run the script:
 ```bash
