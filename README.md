@@ -14,10 +14,10 @@ To get started, download the script for your system:<br>
 (Change the [OS-NAME] like "postinstall-ubuntu.sh")
 ```bash
 # wget
-$ wget https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scritps/postinstall-[OS-NAME].sh
+$ wget https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scripts/postinstall-[OS-NAME].sh
 
 # curl
-$ curl -O https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scritps/postinstall-[OS-NAME].sh
+$ curl -O https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scripts/postinstall-[OS-NAME].sh
 ```
 After the download, run the script:
 ```bash
