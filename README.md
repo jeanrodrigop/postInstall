@@ -23,9 +23,6 @@ After the download, run the script:
 # Linux Mint
 $ sudo bash ./postinstall-mint.sh
 
-# Pop-OS
-$ sudo bash ./postinstall-pop-os.sh
-
 # Ubuntu
 $ sudo bash ./postinstall-ubuntu.sh
 
