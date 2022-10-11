@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# ubuntu-server-postinstall.sh - Install and configure programs for my personal use (Ubuntu server)
+# postinstall-ubuntu-server.sh - Install and configure programs for my personal use (Ubuntu server)
 #
-# Autor:         Jean Rodrigo
+# Build:         Jean Rodrigo
 #
 # ------------------------------------------------------------------------ #
 #
