@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# mint-postinstall.sh - Install and configure programs for my personal use (linuxMint)
+# postinstall-mint.sh - Install and configure programs for my personal use (linuxMint)
 #
-# Autor:         Jean Rodrigo
+# Build:         Jean Rodrigo
 #
 # ------------------------------------------------------------------------ #
 #
