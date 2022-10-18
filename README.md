@@ -10,26 +10,16 @@ This is a **post installation** shell script set up for my personal use, you can
 <hr>
 
 ## How to run on Linux
-To get started, download the script for your system:<br>
-(Change the [OS-NAME] like "postinstall-ubuntu.sh")
+To get started, download the script:
 ```bash
 # wget
-$ wget https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scripts/postinstall-[OS-NAME].sh
-
-# curl
-$ curl -O https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scripts/postinstall-[OS-NAME].sh
+$ wget https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/postinstall.sh
 ```
-After the download, run the script:
+After the download, run the script and choose your system:
 ```bash
-# Linux Mint
-$ sudo bash ./postinstall-mint.sh
-
-# Ubuntu
-$ sudo bash ./postinstall-ubuntu.sh
-
-# Ubuntu Server
-$ sudo bash ./postinstall-ubuntu-server.sh
+# BASH
+$ sudo bash ./postinstall.sh
 ```
 <hr>
 
-Build by Jean Rodrigo | Developed by <a href="https://github.com/Diolinux">Diolinux</a>
+Build by Jean Rodrigo | Based on <a href="https://github.com/Diolinux">Diolinux</a> script
