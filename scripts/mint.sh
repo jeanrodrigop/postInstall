@@ -118,7 +118,3 @@ install_snaps
 apt_update
 system_clean
 extra_config
-
-## finalização
-
-  echo -e "${GREEN}[INFO] - Script finished, installation complete! :)${NO_COLOR}"
