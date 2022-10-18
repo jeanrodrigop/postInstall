@@ -31,6 +31,12 @@ NOSNAP="/etc/apt/preferences.d/nosnap.pref" #linux mint snap unlock
 post_mint(){
     curl -s "$URL_MINT" | bash -s --
 }
+post_ubuntu(){
+    curl -s "$URL_UBUNTU" | bash -s --
+}
+post_userver(){
+    curl -s "$URL_USERVER" | bash -s --
+}
 #exit program
 exit(){
     echo "Exiting..."
@@ -86,6 +92,11 @@ do
         more_apps
     elif [[ $menu == "Ubuntu" ]]; then
         clear
+        post_ubuntu
+        more_apps
+    elif [[ $menu == "Ubuntu" ]]; then
+        clear
+        post_userver
         more_apps
     elif [[ $menu == "Exit" ]]; then
         clear
