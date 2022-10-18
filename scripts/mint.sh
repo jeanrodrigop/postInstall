@@ -61,6 +61,9 @@ echo -e "${GREEN}[INFO] - Downloading .deb packages${NO_COLOR}"
 mkdir $DOWNLOADS_DIRECTORY
 wget -c "$URL_GOOGLE_CHROME"       -P "$DOWNLOADS_DIRECTORY"
 
+# packages installers
+sudo apt install snapd dpkg gdebi 
+
 # Installing downloaded packages .deb in latest session #
 echo -e "${GREEN}[INFO] - Installing downloaded packages .deb${NO_COLOR}"
 sudo dpkg -i $DOWNLOADS_DIRECTORY/*.deb
@@ -78,7 +81,6 @@ install_flatpaks(){
 install_snaps(){
   echo -e "${GREEN}[INFO] - Installing snap packages${NO_COLOR}"
 
-  sudo apt install snapd
   sudo snap install code --classic
   sudo snap install snap-store
 }
@@ -101,6 +103,8 @@ extra_config(){
   sudo echo "alias updc='sudo apt-get autoclean -y && sudo apt-get clean -y && sudo apt-get autoremove -y'" >> ../.bashrc
 #Changing current swappiness value 
   sudo echo "vm.swappiness=10"  >> /etc/sysctl.conf
+#Extra config
+  sudo dpkg-reconfigure gparted git
 
   source $BASHRC
 }
@@ -118,3 +122,7 @@ install_snaps
 apt_update
 system_clean
 extra_config
+
+## finalização
+
+  echo -e "${GREEN}[INFO] - Script finished, installation complete! :)${NO_COLOR}"
