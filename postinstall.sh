@@ -94,7 +94,7 @@ do
         clear
         post_ubuntu
         more_apps
-    elif [[ $menu == "Ubuntu" ]]; then
+    elif [[ $menu == "Ubuntu-Server" ]]; then
         clear
         post_userver
         more_apps
