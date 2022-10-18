@@ -54,7 +54,7 @@ mint_snap(){
 }
 #ask for install more apps
 more_apps(){
-    read -p "\nDo you want to install more apps? [Y/N]" yn
+    read -p "Do you want to install more apps? [Y/N]" yn
     case $yn in
         [yY] ) read -p "Enter apps names separated by 'space': " apps_input;
             apps_array;;
@@ -81,7 +81,7 @@ system_clean(){
 
 ## RUNNING POST INSTALL
 PS3="Select a option: "
-options=(Linux-Mint Ubuntu Ubuntu-Server Exit)
+options=(Linux-Mint Ubuntu Ubuntu-Server Install-Apps Exit)
 select menu in "${options[@]}";
 do
     clear
@@ -89,15 +89,15 @@ do
     if [[ $menu == "Linux-Mint" ]]; then
         clear
         mint_snap
-        more_apps
     elif [[ $menu == "Ubuntu" ]]; then
         clear
         post_ubuntu
-        more_apps
     elif [[ $menu == "Ubuntu-Server" ]]; then
         clear
         post_userver
-        more_apps
+    elif [[ $menu == "Install-Apps" ]]; then
+        clear
+        more_apps   
     elif [[ $menu == "Exit" ]]; then
         clear
         exit
