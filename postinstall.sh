@@ -54,7 +54,7 @@ mint_snap(){
 }
 #ask for install more apps
 more_apps(){
-    read -p "Do you want to install more apps? [Y/N]" yn
+    read -p "\nDo you want to install more apps? [Y/N]" yn
     case $yn in
         [yY] ) read -p "Enter apps names separated by 'space': " apps_input;
             apps_array;;
