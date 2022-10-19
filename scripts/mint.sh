@@ -83,15 +83,6 @@ install_debs(){
   done
 }
 
-## Installing Flatpak packages ##
-install_flatpaks(){
-
-  echo -e "${GREEN}[INFO] - Installing flatpak packages${NO_COLOR}"
-
-  flatpak install flathub org.flameshot.Flameshot -y
-  #flatpak install flathub ro.fxdata.taskmonitor.viewer
-}
-
 ## Installing Snap packages ##
 install_snaps(){
 
@@ -156,7 +147,6 @@ apt_update
 add_archi386
 just_apt_update
 install_debs
-install_flatpaks
 install_snaps
 apt_update
 system_clean
