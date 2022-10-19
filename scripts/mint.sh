@@ -99,7 +99,6 @@ install_snaps(){
 ## Finalizing, updating and cleaning ##
 system_clean(){
   apt_update -y
-  flatpak update -y
   sudo apt clean -y
   sudo apt autoclean -y
   sudo apt autoremove -y
