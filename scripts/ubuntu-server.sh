@@ -25,12 +25,12 @@ apt_update(){
 # -----------------------------TESTS AND REQUIREMENTS----------------------------- #
 # Internet test
 tests_internet(){
-if ! ping -c 1 1.1.1.1 -q &> /dev/null; then
-  echo -e "${RED}[ERROR] - Your computer does not have an Internet connection. Check the network.${NO_COLOR}"
-  exit 1
-else
-  echo -e "${GREEN}[INFO] - Internet connection ok!${NO_COLOR}"
-fi
+  if ! ping -c 1 1.1.1.1 -q &> /dev/null; then
+    echo -e "${RED}[ERROR] - Your computer does not have an Internet connection. Check the network.${NO_COLOR}"
+    exit 1
+  else
+    echo -e "${GREEN}[INFO] - Internet connection ok!${NO_COLOR}"
+  fi
 }
 
 # ------------------------------------------------------------------------------ #
@@ -42,31 +42,31 @@ apt_locks(){
 }
 ## Adding/Confirming 32-bit architecture ##
 add_archi386(){
-sudo dpkg --add-architecture i386
+  sudo dpkg --add-architecture i386
 }
 ## Updating repositories ##
 just_apt_update(){
-sudo apt update -y
+  sudo apt update -y
 }
 
 # -------------------------------------------------------------------------- #
 # ------------------------------ POST-INSTALL ------------------------------ #
 ## Finalizing, updating and cleaning ##
 system_clean(){
-apt_update -y
-sudo apt clean -y
-sudo apt autoclean -y
-sudo apt autoremove -y
+  apt_update -y
+  sudo apt clean -y
+  sudo apt autoclean -y
+  sudo apt autoremove -y
 }
 
 # -------------------------------------------------------------------------- #
 # ----------------------------- EXTRA CONFIGS ------------------------------ #
 extra_config(){
 #Creating aliases in ~/.bashrc file
-#sudo echo "alias updf='sudo apt update && sudo apt full-upgrade -y'" >> ~/.bashrc
-#sudo echo "alias updc='sudo apt-get autoclean -y && sudo apt-get clean -y && sudo apt-get autoremove -y'" >> ~/.bashrc
+  sudo echo "alias updf='sudo apt update && sudo apt full-upgrade -y'" >> ~/.bashrc
+  sudo echo "alias updc='sudo apt-get autoclean -y && sudo apt-get clean -y && sudo apt-get autoremove -y'" >> ~/.bashrc
 #Changing current swappiness value 
-sudo echo "vm.swappiness=10"  >> /etc/sysctl.conf
+  sudo echo "vm.swappiness=10"  >> /etc/sysctl.conf
 }
 
 # -------------------------------------------------------------------------------- #
