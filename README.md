@@ -22,4 +22,4 @@ $ sudo bash ./postinstall.sh
 ```
 <hr>
 
-Build by Jean Rodrigo | Based on <a href="https://github.com/Diolinux">Diolinux</a> script
+Build by Jean Rodrigo
