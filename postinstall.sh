@@ -56,19 +56,6 @@ mint_snap(){
     fi
 }
 
-# Set fedora hostname
-set_hostname(){
-  read -p "Enter the new hostname: " NEW_HOSTNAME
-  if [[ $NEW_HOSTNAME =~ ^[a-zA-Z0-9-]+$ ]]; then
-      sudo hostnamectl set-hostname "$NEW_HOSTNAME"
-      echo "$NEW_HOSTNAME" | sudo tee /etc/hostname > /dev/null
-      echo -e "Hostname set to $NEW_HOSTNAME"
-  else
-      echo "Invalid hostname. Use only letters, numbers and hyphens."
-      post_fedora
-  fi
-}
-
 ## RUNNING POST INSTALL
 PS3="Select a option: "
 options=(Linux-Mint Ubuntu Ubuntu-Server Fedora Exit)
@@ -87,7 +74,7 @@ do
         post_userver
     elif [[ $menu == "Fedora" ]]; then
         clear
-        set_hostname   
+        post_fedora   
     elif [[ $menu == "Exit" ]]; then
         clear
         exit
