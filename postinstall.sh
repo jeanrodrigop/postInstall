@@ -74,7 +74,7 @@ do
         post_userver
     elif [[ $menu == "Fedora" ]]; then
         clear
-        more_apps   
+        post_fedora   
     elif [[ $menu == "Exit" ]]; then
         clear
         exit
