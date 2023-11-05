@@ -110,7 +110,8 @@ firmware_update(){
   sudo fwupdmgr refresh -y --force 
   sudo fwupdmgr get-updates -y 
   sudo fwupdmgr update -y
-
+  
+  reboot
 }
 
 # -------------------------------------------------------------------------- #
