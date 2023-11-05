@@ -8,13 +8,11 @@
 ## ---------------------------------------------------------------------- ##
 set -e
 
-
 ## COLORS
 RED='\e[1;91m'
 GREEN='\e[1;92m'
 BLUE='\e[34m'
 NO_COLOR='\e[0m'
-
 
 ## URLs   
 URL_MINT="https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scripts/mint.sh"
@@ -24,7 +22,6 @@ URL_FEDORA="https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scri
 
 ## DIRECTORIES
 NOSNAP="/etc/apt/preferences.d/nosnap.pref" #linux mint snap unlock
-
 
 ## FUNCTIONS
 #download post install script for linux mint
