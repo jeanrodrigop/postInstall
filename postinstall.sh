@@ -8,11 +8,13 @@
 ## ---------------------------------------------------------------------- ##
 set -e
 
+
 ## COLORS
 RED='\e[1;91m'
 GREEN='\e[1;92m'
 BLUE='\e[34m'
 NO_COLOR='\e[0m'
+
 
 ## URLs   
 URL_MINT="https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scripts/mint.sh"
@@ -22,6 +24,7 @@ URL_FEDORA="https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scri
 
 ## DIRECTORIES
 NOSNAP="/etc/apt/preferences.d/nosnap.pref" #linux mint snap unlock
+
 
 ## FUNCTIONS
 #download post install script for linux mint
@@ -53,6 +56,19 @@ mint_snap(){
     fi
 }
 
+# Set fedora hostname
+set_hostname(){
+  read -p "Enter the new hostname: " NEW_HOSTNAME
+  if [[ $NEW_HOSTNAME =~ ^[a-zA-Z0-9-]+$ ]]; then
+      sudo hostnamectl set-hostname "$NEW_HOSTNAME"
+      echo "$NEW_HOSTNAME" | sudo tee /etc/hostname > /dev/null
+      echo -e "Hostname set to $NEW_HOSTNAME"
+  else
+      echo "Invalid hostname. Use only letters, numbers and hyphens."
+      post_fedora
+  fi
+}
+
 ## RUNNING POST INSTALL
 PS3="Select a option: "
 options=(Linux-Mint Ubuntu Ubuntu-Server Fedora Exit)
@@ -71,7 +87,7 @@ do
         post_userver
     elif [[ $menu == "Fedora" ]]; then
         clear
-        post_fedora   
+        set_hostname   
     elif [[ $menu == "Exit" ]]; then
         clear
         exit
