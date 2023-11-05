@@ -97,13 +97,6 @@ flat_repo(){
   flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 }
 
-## Installing Snap packages
-install_snaps(){
-  echo -e "${GREEN}[INFO] - Installing snap packages${NO_COLOR}"
-  sudo snap install snap-store
-  sudo snap install code --classic
-}
-
 multimedia_plugins(){
   echo -e "${GREEN}[INFO] - Installing multimedia codecs${NO_COLOR}"
   sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
@@ -124,8 +117,6 @@ firmware_update(){
 # ------------------------------ POST-INSTALL ------------------------------ #
 ## Finalizing, updating and cleaning ##
 system_clean(){
-  repo_update -y
-  flatpak update -y
   sudo dnf clean all
 }
 
@@ -152,7 +143,6 @@ install_dnf
 chrome_install
 remove_firefox
 snap_symbolic
-install_snaps
 flat_repo
 multimedia_plugins
 repo_update
