@@ -48,7 +48,21 @@ repo_update(){
 # -------------------------------------------------------------------------- #
 ## SOFTWARES TO INSTALL
 PROGRAMS_TO_INSTALL=(
-  snapd flatpak gparted git htop neofetch vim wget curl vlc unzip p7zip p7zip-plugins unrar fedora-workstation-repositories
+  snapd
+  flatpak
+  gparted
+  git
+  htop
+  neofetch
+  vim
+  wget
+  curl
+  vlc
+  unzip
+  p7zip
+  p7zip-plugins
+  unrar
+  fedora-workstation-repositories
 )
 
 # Installing programs from repositories
