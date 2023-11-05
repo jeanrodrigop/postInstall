@@ -17,20 +17,6 @@ NO_COLOR='\e[0m'
 
 #FUNCTIONS
 # -------------------------------------------------------------------------------- #
-# --------------------------------CHANGE HOSTNAME--------------------------------- #
-# Set new hostname
-set_hostname(){
-  read -p "Enter the new hostname: " NEW_HOSTNAME
-  if [[ $NEW_HOSTNAME =~ ^[a-zA-Z0-9-]+$ ]]; then
-      sudo hostnamectl set-hostname "$NEW_HOSTNAME"
-      echo "$NEW_HOSTNAME" | sudo tee /etc/hostname > /dev/null
-      echo -e "Hostname set to $NEW_HOSTNAME"
-  else
-      echo "Invalid hostname. Use only letters, numbers and hyphens."
-  fi
-}
-
-# -------------------------------------------------------------------------------- #
 # ------------------------------TEST AND REQUIREMENTS----------------------------- #
 # Internet test
 internet_test(){
@@ -113,9 +99,9 @@ install_flatpaks(){
 }
 
 multimedia_plugins(){
-  sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
-  sudo dnf install lame\* --exclude=lame-devel
-  sudo dnf group upgrade --with-optional Multimedia
+  sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
+  sudo dnf install -y lame\* --exclude=lame-devel
+  sudo dnf group upgrade -y --with-optional Multimedia
 }
 
 firmware_update(){
@@ -150,7 +136,6 @@ extra_config(){
 # -------------------------------------------------------------------------------- #
 # ------------------------------- RUNNING ---------------------------------------- #
 
-set_hostname
 internet_test
 fast_mirror
 fusion_repo
