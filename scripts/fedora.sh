@@ -41,6 +41,8 @@ fusion_repo(){
   echo -e "${GREEN}[INFO] - Installing fusion repositories${NO_COLOR}"
   sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
   sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+  sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+  sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 }
 
 # Update repositories and upgrade system
@@ -56,6 +58,7 @@ PROGRAMS_TO_INSTALL=(
   flatpak
   gparted
   git
+  code
   htop
   neofetch
   vim
@@ -110,7 +113,7 @@ firmware_update(){
   sudo fwupdmgr refresh -y --force 
   sudo fwupdmgr get-updates -y 
   sudo fwupdmgr update -y
-  
+
   reboot
 }
 
