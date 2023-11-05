@@ -20,7 +20,7 @@ NO_COLOR='\e[0m'
 URL_MINT="https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scripts/mint.sh"
 URL_UBUNTU="https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scripts/ubuntu.sh"
 URL_USERVER="https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scripts/ubuntu-server.sh"
-
+URL_FEDORA="https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scripts/fedora.sh"
 
 ## DIRECTORIES
 NOSNAP="/etc/apt/preferences.d/nosnap.pref" #linux mint snap unlock
@@ -37,6 +37,9 @@ post_ubuntu(){
 post_userver(){
     curl -s "$URL_USERVER" | bash -s --
 }
+post_fedora(){
+    curl -s "$URL_FEDORA" | bash -s --
+}
 #exit program
 exit(){
     echo "Exiting..."
@@ -52,36 +55,10 @@ mint_snap(){
         post_mint
     fi
 }
-#ask for install more apps
-more_apps(){
-    read -p "Do you want to install more apps? [Y/N]" yn
-    case $yn in
-        [yY] ) read -p "Enter apps names separated by 'space': " apps_input;
-            apps_array;;
-        [nN] ) exit;
-            ;;
-    esac
-}
-#array for apt apps(debian/ubuntu like)
-apps_array(){
-    for app in ${apps_input[@]}
-    do
-        sudo apt install -y $app
-        system_clean
-        exit
-    done
-}
-#clean system after install more apps
-system_clean(){
-    sudo apt clean -y
-    sudo apt autoclean -y
-    sudo apt autoremove -y
-}
-
 
 ## RUNNING POST INSTALL
 PS3="Select a option: "
-options=(Linux-Mint Ubuntu Ubuntu-Server Install-Apps Exit)
+options=(Linux-Mint Ubuntu Ubuntu-Server Fedora Exit)
 select menu in "${options[@]}";
 do
     clear
@@ -95,7 +72,7 @@ do
     elif [[ $menu == "Ubuntu-Server" ]]; then
         clear
         post_userver
-    elif [[ $menu == "Install-Apps" ]]; then
+    elif [[ $menu == "Fedora" ]]; then
         clear
         more_apps   
     elif [[ $menu == "Exit" ]]; then
