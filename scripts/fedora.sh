@@ -16,6 +16,7 @@ GREEN='\e[1;92m'
 NO_COLOR='\e[0m'
 
 #FUNCTIONS
+echo -e "${GREEN}[INFO] - Fedora Post Install Script...${NO_COLOR}"
 # -------------------------------------------------------------------------------- #
 # ------------------------------TEST AND REQUIREMENTS----------------------------- #
 # Internet test
@@ -30,18 +31,21 @@ internet_test(){
 
 # Fastest mirror config
 fast_mirror(){
+  echo -e "${GREEN}[INFO] - Set fast mirror config${NO_COLOR}"
   sudo echo "max_parallel_downloads=10"  >> /etc/dnf/dnf.conf
   sudo echo "fastestmirror=True"  >> /etc/dnf/dnf.conf
   sudo echo "deltarpm=True"  >> /etc/dnf/dnf.conf
 }
 
 fusion_repo(){
+  echo -e "${GREEN}[INFO] - Installing fusion repositories${NO_COLOR}"
   sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
   sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 }
 
 # Update repositories and upgrade system
 repo_update(){
+  echo -e "${GREEN}[INFO] - Updating repositories${NO_COLOR}"
   sudo dnf update -y && sudo dnf upgrade -y --refresh
 }
 
@@ -89,22 +93,26 @@ snap_symbolic(){
 
 ## Set flathub repository
 flat_repo(){
+  echo -e "${GREEN}[INFO] - Adding flatpak repositories${NO_COLOR}"
   flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 }
 
-## Installing Flatpak packages ##
-install_flatpaks(){
-  echo -e "${GREEN}[INFO] - Installing flatpak packages${NO_COLOR}"
-  flatpak install flathub com.visualstudio.code -y
+## Installing Snap packages
+install_snaps(){
+  echo -e "${GREEN}[INFO] - Installing snap packages${NO_COLOR}"
+  sudo snap install snap-store
+  sudo snap install code --classic
 }
 
 multimedia_plugins(){
+  echo -e "${GREEN}[INFO] - Installing multimedia codecs${NO_COLOR}"
   sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
   sudo dnf install -y lame\* --exclude=lame-devel
   sudo dnf group upgrade -y --with-optional Multimedia --allowerasing
 }
 
 firmware_update(){
+  echo -e "${GREEN}[INFO] - Updating firmwares${NO_COLOR}"
   sudo fwupdmgr get-devices -y
   sudo fwupdmgr refresh -y --force 
   sudo fwupdmgr get-updates -y 
@@ -146,11 +154,10 @@ remove_firefox
 snap_symbolic
 flat_repo
 multimedia_plugins
-install_flatpaks
-firmware_update
 repo_update
 system_clean
 extra_config
+firmware_update
 
 ## finalização
   echo -e "${GREEN}[INFO] - Script completed, reboot the system! :)${NO_COLOR}"
