@@ -42,11 +42,6 @@ internet_test(){
   fi
 }
 
-# Update repositories and upgrade system
-repo_update(){
-  sudo dnf update -y && sudo dnf upgrade -y --refresh
-}
-
 # Fastest mirror config
 fast_mirror(){
   sudo echo "max_parallel_downloads=10"  >> /etc/dnf/dnf.conf
@@ -55,8 +50,13 @@ fast_mirror(){
 }
 
 fusion_repo(){
-  sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-  sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+  sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+  sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+}
+
+# Update repositories and upgrade system
+repo_update(){
+  sudo dnf update -y && sudo dnf upgrade -y --refresh
 }
 
 # -------------------------------------------------------------------------- #
