@@ -152,6 +152,7 @@ install_dnf
 chrome_install
 remove_firefox
 snap_symbolic
+install_snaps
 flat_repo
 multimedia_plugins
 repo_update
