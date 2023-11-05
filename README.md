@@ -12,13 +12,8 @@ This is a **post installation** shell script set up for my personal use, you can
 ## How to run on Linux
 To get started, download the script:
 ```bash
-# wget
-$ wget https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/postinstall.sh
-```
-After the download, run the script and choose your system:
-```bash
-# BASH
-$ sudo bash ./postinstall.sh
+# curl
+$ curl https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/postinstall.sh | sudo bash
 ```
 <hr>
 
