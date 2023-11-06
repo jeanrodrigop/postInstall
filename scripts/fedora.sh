@@ -8,8 +8,6 @@
 ## ----------------------------- VARIABLES ------------------------------ ##
 set -e
 
-BASHRC="$HOME/.bashrc"
-
 #COLORS
 RED='\e[1;91m'
 GREEN='\e[1;92m'
@@ -107,16 +105,6 @@ multimedia_plugins(){
   sudo dnf group upgrade -y --with-optional Multimedia --allowerasing
 }
 
-firmware_update(){
-  echo -e "${GREEN}[INFO] - Updating firmwares${NO_COLOR}"
-  sudo fwupdmgr get-devices -y
-  sudo fwupdmgr refresh -y --force 
-  sudo fwupdmgr get-updates -y 
-  sudo fwupdmgr update -y
-
-  reboot
-}
-
 # -------------------------------------------------------------------------- #
 # ------------------------------ POST-INSTALL ------------------------------ #
 ## Finalizing, updating and cleaning ##
@@ -128,12 +116,11 @@ system_clean(){
 # ----------------------------- EXTRA CONFIGS ------------------------------ #
 extra_config(){
   #Creating aliases in ~/.bashrc file
-  sudo echo "alias updf='sudo dnf update -y && sudo dnf upgrade -y --refresh'" >> ../.bashrc
+  sudo echo "alias updf='sudo dnf update -y && sudo dnf upgrade -y --refresh'" >> ~/.bashrc
 
   #Changing current swappiness value
   sudo echo "vm.swappiness=10"  >> /etc/sysctl.conf
 
-  source $BASHRC
 }
 
 # -------------------------------------------------------------------------------- #
@@ -152,7 +139,6 @@ multimedia_plugins
 repo_update
 system_clean
 extra_config
-#firmware_update
 
 ## finalização
   echo -e "${GREEN}[INFO] - Script completed, reboot the system! :)${NO_COLOR}"
