@@ -152,7 +152,7 @@ multimedia_plugins
 repo_update
 system_clean
 extra_config
-firmware_update
+#firmware_update
 
 ## finalização
   echo -e "${GREEN}[INFO] - Script completed, reboot the system! :)${NO_COLOR}"
