@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 ## ---------------------------------------------------------------------- ##
 ##  postinstall.sh - Personal script for automate linux post installation 
 ##  Autor: Jean Rodrigo
@@ -8,13 +8,11 @@
 ## ---------------------------------------------------------------------- ##
 set -e
 
-
 ## COLORS
-RED='\e[1;91m'
-GREEN='\e[1;92m'
-BLUE='\e[34m'
-NO_COLOR='\e[0m'
-
+RED='\033[1;91m'
+GREEN='\033[1;92m'
+BLUE='\033[34m'
+NO_COLOR='\033[0m'
 
 ## URLs   
 URL_MINT="https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scripts/mint.sh"
@@ -25,9 +23,8 @@ URL_FEDORA="https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scri
 ## DIRECTORIES
 NOSNAP="/etc/apt/preferences.d/nosnap.pref" #linux mint snap unlock
 
-
 ## FUNCTIONS
-#download post install script for linux mint
+# Download post install script for Linux Mint
 post_mint(){
     curl -s "$URL_MINT" | bash -s --
 }
@@ -40,45 +37,45 @@ post_userver(){
 post_fedora(){
     curl -s "$URL_FEDORA" | bash -s --
 }
-#exit program
-exit(){
+# Exit program
+exit_program(){
     echo "Exiting..."
 }
-#unlock snaps for linux mint
+# Unlock snaps for Linux Mint
 mint_snap(){
     if [ -f "$NOSNAP" ] ; then
-        read -p "##LINUX MINT FIRST RUN NEED RESTART, THEN RUN SCRIPT AGAIN[PRESS ENTER]" t1
+        read -p "## LINUX MINT FIRST RUN NEED RESTART, THEN RUN SCRIPT AGAIN [PRESS ENTER]" t1
         rm "$NOSNAP"
         sudo reboot
     else
-        echo -e "${GREEN}[NOSNAP REMOVED]RUNNING POST INSTALL${NO_COLOR}" 
+        echo -e "${GREEN}[NOSNAP REMOVED] RUNNING POST INSTALL${NO_COLOR}" 
         post_mint
     fi
 }
 
 ## RUNNING POST INSTALL
-PS3="Select a option: "
-options=(Linux-Mint Ubuntu Ubuntu-Server Fedora Exit)
+PS3="Select an option: "
+options=("Linux-Mint" "Ubuntu" "Ubuntu-Server" "Fedora" "Exit")
 select menu in "${options[@]}";
 do
     clear
     echo -e "\nYou selected $menu"
-    if [[ $menu == "Linux-Mint" ]]; then
+    if [[ "${menu}" == "Linux-Mint" ]]; then
         clear
         mint_snap
-    elif [[ $menu == "Ubuntu" ]]; then
+    elif [[ "${menu}" == "Ubuntu" ]]; then
         clear
         post_ubuntu
-    elif [[ $menu == "Ubuntu-Server" ]]; then
+    elif [[ "${menu}" == "Ubuntu-Server" ]]; then
         clear
         post_userver
-    elif [[ $menu == "Fedora" ]]; then
+    elif [[ "${menu}" == "Fedora" ]]; then
         clear
         post_fedora   
-    elif [[ $menu == "Exit" ]]; then
+    elif [[ "${menu}" == "Exit" ]]; then
         clear
-        exit
-        break;
+        exit_program
+        break
     else
         echo "Option not available!"
     fi 
