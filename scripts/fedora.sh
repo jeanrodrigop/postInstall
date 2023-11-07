@@ -141,4 +141,5 @@ system_clean
 extra_config
 
 ## finalização
-  echo -e "${GREEN}[INFO] - Script completed, reboot the system! :)${NO_COLOR}"
+echo -e "${GREEN}[INFO] - Script completed, reboot the system! :)${NO_COLOR}"
+exit
