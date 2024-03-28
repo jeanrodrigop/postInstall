@@ -57,7 +57,9 @@ PROGRAMS_TO_INSTALL=(
   gparted
   git
   code
-  htop
+  plank
+  loupe
+  btop
   neofetch
   vim
   wget
@@ -68,6 +70,7 @@ PROGRAMS_TO_INSTALL=(
   p7zip-plugins
   unrar
   fedora-workstation-repositories
+  lsd
 )
 
 # Installing programs from repositories
@@ -115,11 +118,22 @@ system_clean(){
 # -------------------------------------------------------------------------- #
 # ----------------------------- EXTRA CONFIGS ------------------------------ #
 extra_config(){
-  #Creating aliases in ~/.bashrc file
-  sudo echo "alias updf='sudo dnf update -y && sudo dnf upgrade -y --refresh'" >> ~/.bashrc
+##Creating aliases in ~/.bashrc file
+cat >>~/.bashrc << EOF
 
-  #Changing current swappiness value
-  sudo echo "vm.swappiness=10"  >> /etc/sysctl.conf
+alias updc="sudo dnf update -y && flatpak update -y && sudo snap refresh"
+alias updc="sudo dnf autoremove -y"
+alias fdns="systemd-resolve --flush-caches && systemd-resolve --flush-caches && resolvectl flush-caches"
+
+# LSD 
+if [ -x "$(command -v lsd)" ]; then
+alias ls="lsd"
+alias la="lsd -al"
+fi
+EOF
+
+#Changing current swappiness value
+sudo echo "vm.swappiness=10"  >> /etc/sysctl.conf
 
 }
 
