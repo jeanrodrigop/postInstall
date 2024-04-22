@@ -164,6 +164,7 @@ tests_internet
 apt_update
 add_archi386
 just_apt_update
+install_debs
 install_packages
 flat_repo
 apt_update
