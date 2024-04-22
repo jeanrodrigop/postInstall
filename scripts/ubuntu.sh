@@ -74,6 +74,8 @@ sudo dpkg -i $DOWNLOADS_DIRECTORY/*.deb
 ## Packages to install
 PROGRAMS_TO_INSTALL=(
   snapd
+  flatpak
+  gnome-software-plugin-flatpak
   dpkg
   gdebi
   gdebi-core 
@@ -86,9 +88,7 @@ PROGRAMS_TO_INSTALL=(
   vlc
   unzip
   p7zip
-  p7zip-plugins
   unrar
-  lsd
 )
 
 # Installing programs from apt
@@ -102,7 +102,7 @@ install_packages(){
 
 ## Set flathub repository
 flat_repo(){
-  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 }
 
 ## Installing Flatpak packages ##
@@ -155,15 +155,6 @@ sudo echo "alias updc='sudo apt-get autoclean -y && sudo apt-get clean -y && sud
 sudo echo "vm.swappiness=10"  >> /etc/sysctl.conf
 
 source $BASHRC
-
-cat >>~/.bashrc << EOF
-# LSD 
-if [ -x "$(command -v lsd)" ]; then
-alias ls="lsd"
-alias la="lsd -al"
-fi
-EOF
-
 }
 
 # -------------------------------------------------------------------------------- #
