@@ -89,6 +89,11 @@ PROGRAMS_TO_INSTALL=(
   unzip
   p7zip
   unrar
+  fonts-firacode
+  fonts-cascadia-code
+  ubuntu-restricted-extras
+  ttf-mscorefonts-installer
+  fonts-freefont-ttf
 )
 
 # Installing programs from apt
