@@ -69,8 +69,37 @@ wget -c "$URL_GOOGLE_CHROME"       -P "$DOWNLOADS_DIRECTORY"
 ## Installing downloaded packages .deb in latest session ##
 echo -e "${GREEN}[INFO] - Installing downloaded packages .deb${NO_COLOR}"
 sudo dpkg -i $DOWNLOADS_DIRECTORY/*.deb
-
 }
+
+## Packages to install
+PROGRAMS_TO_INSTALL=(
+  snapd
+  dpkg
+  gdebi
+  gdebi-core 
+  gparted
+  wget
+  curl
+  btop
+  neofetch
+  vim
+  vlc
+  unzip
+  p7zip
+  p7zip-plugins
+  unrar
+  lsd
+)
+
+# Installing programs from apt
+install_packages(){
+  echo -e "${GREEN}[INFO] - Installing programs from repositories${NO_COLOR}"
+
+  for program_name in ${PROGRAMS_TO_INSTALL[@]}; do
+    sudo apt install "$program_name" -y
+  done
+}
+
 ## Set flathub repository
 flat_repo(){
   flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -81,11 +110,8 @@ install_flatpaks(){
 
   echo -e "${GREEN}[INFO] - Installing flatpak packages${NO_COLOR}"
 
-#flatpak install flathub org.onlyoffice.desktopeditors -y
 flatpak install flathub org.qbittorrent.qBittorrent -y
 flatpak install flathub org.flameshot.Flameshot -y
-#flatpak install flathub com.raggesilver.BlackBox -y
-#flatpak install flathub ro.fxdata.taskmonitor.viewer
 }
 
 ## Installing Snap packages ##
@@ -94,7 +120,7 @@ install_snaps(){
 
 echo -e "${GREEN}[INFO] - Installing snap packages${NO_COLOR}"
 
-sudo apt install snapd
+#sudo apt install snapd
 sudo snap install code --classic
 sudo snap install snap-store
 #sudo snap install multipass
@@ -122,13 +148,22 @@ sudo apt autoremove -y
 
 extra_config(){
 #Creating aliases in ~/.bashrc file
-sudo echo "alias updf='sudo apt update && sudo apt full-upgrade -y'" >> ../.bashrc
+sudo echo "alias updf='sudo apt update && sudo apt full-upgrade -y && flatpak update -y && sudo snap refresh'" >> ../.bashrc
 sudo echo "alias updc='sudo apt-get autoclean -y && sudo apt-get clean -y && sudo apt-get autoremove -y'" >> ../.bashrc
 
 #Changing current swappiness value 
 sudo echo "vm.swappiness=10"  >> /etc/sysctl.conf
 
 source $BASHRC
+
+cat >>~/.bashrc << EOF
+# LSD 
+if [ -x "$(command -v lsd)" ]; then
+alias ls="lsd"
+alias la="lsd -al"
+fi
+EOF
+
 }
 
 # -------------------------------------------------------------------------------- #
@@ -138,6 +173,7 @@ tests_internet
 apt_update
 add_archi386
 just_apt_update
+install_packages
 flat_repo
 apt_update
 install_flatpaks
