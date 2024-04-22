@@ -127,6 +127,11 @@ sudo snap install snap-store
 
 }
 
+# Remove Firefox
+remove_firefox(){
+  sudo apt remove -y firefox --purge
+  sudo sudo apt remove firefox --purgesnap remove -y firefox --purge
+}
 
 # -------------------------------------------------------------------------- #
 # ------------------------------ POST-INSTALL ------------------------------ #
@@ -155,6 +160,15 @@ sudo echo "alias updc='sudo apt-get autoclean -y && sudo apt-get clean -y && sud
 sudo echo "vm.swappiness=10"  >> /etc/sysctl.conf
 
 source $BASHRC
+
+cat >>~/.bashrc << EOF
+# LSD 
+if [ -x "$(command -v lsd)" ]; then
+alias ls="lsd"
+alias la="lsd -al"
+fi
+EOF
+
 }
 
 # -------------------------------------------------------------------------------- #
@@ -171,6 +185,7 @@ apt_update
 install_flatpaks
 install_snaps
 apt_update
+remove_firefox
 system_clean
 extra_config
 
