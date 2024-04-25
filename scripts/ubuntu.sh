@@ -94,6 +94,7 @@ PROGRAMS_TO_INSTALL=(
   ubuntu-restricted-extras
   ttf-mscorefonts-installer
   fonts-freefont-ttf
+  nala
 )
 
 # Installing programs from apt
@@ -135,7 +136,8 @@ sudo snap install snap-store
 # Remove Firefox
 remove_firefox(){
   sudo apt remove -y firefox --purge
-  sudo sudo apt remove firefox --purgesnap remove -y firefox --purge
+  sudo sudo apt remove firefox --purge
+  snap remove firefox --purge
 }
 
 # -------------------------------------------------------------------------- #
