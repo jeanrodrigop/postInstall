@@ -27,4 +27,4 @@ $ sudo bash ./postinstall.sh
 ```
 <hr>
 
-Build by Jean Rodrigo
+Jean Rodrigo
