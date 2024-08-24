@@ -19,6 +19,7 @@ URL_MINT="https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/script
 URL_UBUNTU="https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scripts/ubuntu.sh"
 URL_USERVER="https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scripts/ubuntu-server.sh"
 URL_FEDORA="https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scripts/fedora.sh"
+URL_MANJARO="https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/scripts/manjaro.sh"
 
 ## DIRECTORIES
 NOSNAP="/etc/apt/preferences.d/nosnap.pref" #linux mint snap unlock
@@ -36,6 +37,9 @@ post_userver(){
 }
 post_fedora(){
     curl -s "$URL_FEDORA" | bash -s --
+}
+post_manjaro(){
+    curl -s "$URL_MANJARO" | bash -s --
 }
 # Exit program
 exit_program(){
@@ -55,7 +59,7 @@ mint_snap(){
 
 ## RUNNING POST INSTALL
 PS3="Select an option: "
-options=("Linux-Mint" "Ubuntu" "Ubuntu-Server" "Fedora" "Exit")
+options=("Linux-Mint" "Ubuntu" "Ubuntu-Server" "Fedora" "Manjaro" "Exit")
 select menu in "${options[@]}";
 do
     clear
@@ -72,6 +76,9 @@ do
     elif [[ "${menu}" == "Fedora" ]]; then
         clear
         post_fedora   
+    elif [[ "${menu}" == "Manjaro" ]]; then
+        clear
+        post_manjaro
     elif [[ "${menu}" == "Exit" ]]; then
         clear
         exit_program
