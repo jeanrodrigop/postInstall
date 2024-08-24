@@ -46,6 +46,7 @@ update_repositories() {
 
 # PACKAGES TO INSTALL
 PACMAN_APPS=(
+    snapd
     plank
     loupe
     neofetch
@@ -59,8 +60,11 @@ PACMAN_APPS=(
 )
 
 FLATPAK_APPS=(
-    com.visualstudio.code
     com.google.Chrome
+)
+
+SNAP_APPS=(
+    code --classic
 )
 
 REMOVE_APPS=(
@@ -72,7 +76,6 @@ REMOVE_APPS=(
     celluloid
     mpv
     lollypop
-
 )
 
 # Installing packages from pacman
@@ -88,9 +91,29 @@ install_flatpak_apps() {
   
     local -r flatpak_app=("${FLATPAK_APPS[@]}")
 
-    for app in "${flatpak_app[@]}"; do
-        flatpak install -y "$app"
+    for fapp in "${flatpak_app[@]}"; do
+        flatpak install -y "$fapp"
     done
+}
+
+# Installing apps from snap
+install_snap_apps() {
+    echo -e "${GREEN}[INFO] - Installing programs from Snap${NO_COLOR}"
+  
+    local -r snap_app=("${SNAP_APPS[@]}")
+
+    for sapp in "${snap_app[@]}"; do
+        sudo snap install -y "$sapp"
+    done
+}
+
+# Config snap
+config_snap() {
+    echo -e "${GREEN}[INFO] - Configuring snap${NO_COLOR}"
+  
+    sudo systemctl enable --now snapd.socket
+
+    sudo ln -s /var/lib/snapd/snap /snap
 }
 
 # Remove some ununsed apps
@@ -146,6 +169,8 @@ fast_mirror
 update_repositories
 install_pacman_packages
 install_flatpak_apps
+config_snap
+install_snap_apps
 remove_apps
 system_clean
 ssd_trim
