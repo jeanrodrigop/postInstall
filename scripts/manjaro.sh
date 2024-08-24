@@ -112,6 +112,7 @@ config_snap() {
     echo -e "${GREEN}[INFO] - Configuring snap${NO_COLOR}"
   
     sudo systemctl enable --now snapd.socket
+    sudo systemctl enable --now snapd.apparmor
 
     sudo ln -s /var/lib/snapd/snap /snap
 }
