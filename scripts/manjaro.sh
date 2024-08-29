@@ -103,7 +103,7 @@ install_snap_apps() {
     local -r snap_app=("${SNAP_APPS[@]}")
 
     for sapp in "${snap_app[@]}"; do
-        sudo snap install -y "$sapp"
+        sudo snap install "$sapp"
     done
 }
 
