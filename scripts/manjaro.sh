@@ -61,6 +61,7 @@ PACMAN_APPS=(
 
 FLATPAK_APPS=(
     com.google.Chrome
+    flathub com.raggesilver.BlackBox
 )
 
 SNAP_APPS=(
