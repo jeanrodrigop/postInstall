@@ -41,7 +41,7 @@ fast_mirror() {
 update_repositories() {
     echo -e "${GREEN}[INFO] - Updating repositories${NO_COLOR}"
     
-    sudo pacman -Syyu --noconfirm
+    pacman -Sy archlinux-keyring --noconfirm && sudo pacman -Syyu --noconfirm
 }
 
 # PACKAGES TO INSTALL
