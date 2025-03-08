@@ -1,9 +1,9 @@
 <p><img alt="ManjaroLogo" title="Manjaro" src="./img/logo.png" width="75px" /></p>
 
-# Manjaro [Cinnamon] post installation script.
+# Manjaro post installation script.
 
 <h1 align="center">
-    <img alt="manjaro" title="Manjaro Cinnamon" src="./img/manjaro-cinnamon.png" width="60%" heigth="60%" />
+    <img alt="manjaro" title="Manjaro Cinnamon" src="./img/manjaro-cinnamon.png" width="100%" heigth="100%" />
 </h1>
 
 This is a **post installation** shell script set up for my personal use, you can use it or edit it for your own use.
@@ -11,7 +11,7 @@ This is a **post installation** shell script set up for my personal use, you can
 
 ```bash
 # bash
-sudo chmod +x postinstall.sh && sudo ./postinstall.sh
+sudo chmod +x manjaro-cinnamon.sh && sudo ./manjaro-cinnamon.sh
 ```
 <hr>
 
