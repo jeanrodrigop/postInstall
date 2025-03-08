@@ -30,14 +30,14 @@ internet_test() {
 fast_mirror() {
     echo -e "${GREEN}[INFO] - Setting fastest mirrors${NO_COLOR}"
 
-    sudo pacman-mirrors --fasttrack 5 && sudo pacman-mirrors --geoip
+    (sudo pacman-mirrors --fasttrack 5 && sudo pacman-mirrors --geoip) > /dev/null 2>> error.log
 }
 
 # UPDATE AND UPGRADE
 update_repositories() {
     echo -e "${GREEN}[INFO] - Applying update and upgrade${NO_COLOR}"
     
-    sudo pacman -Sy archlinux-keyring --noconfirm && sudo pacman -Syyu --noconfirm
+    (sudo pacman -Sy archlinux-keyring --noconfirm && sudo pacman -Syyu --noconfirm) > /dev/null 2>> error.log
 }
 
 # LIST PACKAGES TO INSTALL
@@ -73,20 +73,14 @@ PACMAN_APPS=(
 # FLATPAK PACKAGES
 FLATPAK_APPS=(
     com.google.Chrome
-    flathub com.raggesilver.BlackBox
+    com.raggesilver.BlackBox
     de.swsnr.turnon
-)
-
-# SNAP PACKAGES
-SNAP_APPS=(
-    code --classic
 )
 
 # LIST PACKAGES TO REMOVE
 REMOVE_APPS=(
     thunderbird
     vivaldi
-    hexchat
     gimp
     pix
     celluloid
@@ -98,7 +92,7 @@ REMOVE_APPS=(
 install_pacman_packages() {
     echo -e "${GREEN}[INFO] - Installing packages with pacman${NO_COLOR}"
   
-    sudo pacman -S --noconfirm "${PACMAN_APPS[@]}"
+    sudo pacman -S --noconfirm "${PACMAN_APPS[@]}" > /dev/null 2>> error.log
 }
 
 # INSTALLING PACKAGES FROM FLATPAK
@@ -108,67 +102,67 @@ install_flatpak_apps() {
     local -r flatpak_app=("${FLATPAK_APPS[@]}")
 
     for fapp in "${flatpak_app[@]}"; do
-        flatpak install -y "$fapp"
+        flatpak install -y "$fapp" > /dev/null 2>> error.log
     done
 }
 
 # INSTALLING PACKAGES FROM SNAP
 install_snap_apps() {
-    echo -e "${GREEN}[INFO] - Installing packages from snap${NO_COLOR}"
-  
-    local -r snap_app=("${SNAP_APPS[@]}")
+    echo -e "${GREEN}[INFO] - Installing snap packages${NO_COLOR}"
 
-    for sapp in "${snap_app[@]}"; do
-        sudo snap install "$sapp"
-    done
+    sudo snap install code --classic > /dev/null 2>> error.log
 }
 
 # SNAP CONFIG
 config_snap() {
     echo -e "${GREEN}[INFO] - Configuring snap${NO_COLOR}"
   
-    sudo systemctl enable --now snapd.socket
-    sudo systemctl enable --now snapd.apparmor
+    sudo systemctl enable --now snapd.socket > /dev/null 2>> error.log
+    sudo systemctl enable --now snapd.apparmor > /dev/null 2>> error.log
+    sudo systemctl enable --now snapd.service > /dev/null 2>> error.log
+    sudo systemctl restart snapd > /dev/null 2>> error.log
 
-    sudo ln -s /var/lib/snapd/snap /snap
+    sudo ln -s /var/lib/snapd/snap /snap > /dev/null 2>> error.log
 }
 
 # REMOVE APPs
 remove_apps() {
     echo -e "${GREEN}[INFO] - Removing selected apps${NO_COLOR}"
   
-    sudo pacman -R --noconfirm "${REMOVE_APPS[@]}"
+    sudo pacman -R --noconfirm "${REMOVE_APPS[@]}" > /dev/null 2>> error.log
 }
 
 # SYSTEM CLEAN 
 system_clean(){
     echo -e "${GREEN}[INFO] - Cleaning cache${NO_COLOR}"
 
-    sudo pacman -Rns $(pacman -Qqdt) --noconfirm && sudo pacman -Sc --noconfirm
+    (sudo pacman -Rns $(pacman -Qqdt) --noconfirm && sudo pacman -Sc --noconfirm) > /dev/null 2>> error.log
 }
 
 # TRIM SSD
 ssd_trim(){
     echo -e "${GREEN}[INFO] - SSD trimming${NO_COLOR}"
     
-    sudo systemctl enable fstrim.timer --now
+    sudo systemctl enable fstrim.timer --now > /dev/null 2>> error.log
 }
 
 # PERSONAL CONFIGURATION FILES
 personal_configs(){
     echo -e "${GREEN}[INFO] - Copying personal configuration files${NO_COLOR}"
 
-    unzip configs.zip
+    unzip configs.zip > /dev/null 2>> error.log
 
-    sudo cp -rf fonts/ "$HOME/.fonts"
-    sudo cp -rf config/ "$HOME/.config"
+    mkdir $HOME/.fonts
+
+    sudo cp -rf fonts/* $HOME/.fonts
+    sudo cp -rf config/* $HOME/.config
 }
 
 # RELOAD FONTS CACHE
 reload_fonts_cache(){
     echo -e "${GREEN}[INFO] - Reloading fonts cache${NO_COLOR}"
     
-    sudo fc-cache -f
+    sudo fc-cache -f > /dev/null 2>> error.log
 }
 
 # CREATE ALIASES
@@ -205,5 +199,5 @@ reload_fonts_cache
 create_aliases
 
 # Ending
-echo -e "${GREEN}[INFO] - Script completed, reboot the system! :)${NO_COLOR}"
+echo -e "${GREEN}[INFO] - FINISHED, REBOOT THE SYSTEM!${NO_COLOR}"
 exit
