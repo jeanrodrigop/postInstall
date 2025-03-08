@@ -23,7 +23,7 @@ $ sudo chmod +x postinstall.sh
 Then run the script:
 ```bash
 # bash
-$ sudo ./postinstall.sh
+$ ./postinstall.sh
 ```
 <hr>
 
