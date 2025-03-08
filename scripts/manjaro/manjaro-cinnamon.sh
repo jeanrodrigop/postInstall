@@ -1,0 +1,209 @@
+#!/bin/bash
+ 
+#  Personal script for automate linux post installation 
+#  Author: Jean Rodrigo
+#  ----------------------------------------------------
+#  HOW TO USE?
+#  $ sudo chmod +x manjaro-cinnamon.sh && ./manjaro-cinnamon.sh
+  
+# VARIABLES
+set -e
+
+# COLORS
+RED='\e[1;91m'
+GREEN='\e[1;92m'
+NO_COLOR='\e[0m'
+
+# INTERNET TEST
+internet_test() {
+    echo -e "${GREEN}[INFO] - Testing Internet connection${NO_COLOR}"
+    
+    if ! ping -c 1 1.1.1.1 -q &> /dev/null; then
+        echo -e "${RED}[ERROR] - Your computer does not have an Internet connection. Check the network.${NO_COLOR}"
+        exit 1
+    else
+        echo -e "${GREEN}[INFO] - Internet connection is ok!${NO_COLOR}"
+    fi
+}
+
+# MIRROR CONFIGURATION
+fast_mirror() {
+    echo -e "${GREEN}[INFO] - Setting fastest mirrors${NO_COLOR}"
+
+    sudo pacman-mirrors --fasttrack 5 && sudo pacman-mirrors --geoip
+}
+
+# UPDATE AND UPGRADE
+update_repositories() {
+    echo -e "${GREEN}[INFO] - Applying update and upgrade${NO_COLOR}"
+    
+    sudo pacman -Sy archlinux-keyring --noconfirm && sudo pacman -Syyu --noconfirm
+}
+
+# LIST PACKAGES TO INSTALL
+# REPO PACKAGES
+PACMAN_APPS=(
+    snapd
+    plank
+    polybar
+    rofi
+    loupe
+    neofetch
+    gparted
+    htop
+    git
+    vim
+    vlc
+    unrar
+    easyeffects
+    flameshot
+    remmina
+    freerdp
+    freerdp2
+    lsd
+    tmux
+    steam
+    discord
+    galculator
+    ttf-firacode-nerd
+    ttf-cascadia-code-nerd
+    ttf-meslo-nerd-font-powerlevel10k
+)
+
+# FLATPAK PACKAGES
+FLATPAK_APPS=(
+    com.google.Chrome
+    flathub com.raggesilver.BlackBox
+    de.swsnr.turnon
+)
+
+# SNAP PACKAGES
+SNAP_APPS=(
+    code --classic
+)
+
+# LIST PACKAGES TO REMOVE
+REMOVE_APPS=(
+    thunderbird
+    vivaldi
+    hexchat
+    gimp
+    pix
+    celluloid
+    mpv
+    lollypop
+)
+
+# INSTALLING PACKAGES FROM REPO
+install_pacman_packages() {
+    echo -e "${GREEN}[INFO] - Installing packages with pacman${NO_COLOR}"
+  
+    sudo pacman -S --noconfirm "${PACMAN_APPS[@]}"
+}
+
+# INSTALLING PACKAGES FROM FLATPAK
+install_flatpak_apps() {
+    echo -e "${GREEN}[INFO] - Installing packages from flatpak${NO_COLOR}"
+  
+    local -r flatpak_app=("${FLATPAK_APPS[@]}")
+
+    for fapp in "${flatpak_app[@]}"; do
+        flatpak install -y "$fapp"
+    done
+}
+
+# INSTALLING PACKAGES FROM SNAP
+install_snap_apps() {
+    echo -e "${GREEN}[INFO] - Installing packages from snap${NO_COLOR}"
+  
+    local -r snap_app=("${SNAP_APPS[@]}")
+
+    for sapp in "${snap_app[@]}"; do
+        sudo snap install "$sapp"
+    done
+}
+
+# SNAP CONFIG
+config_snap() {
+    echo -e "${GREEN}[INFO] - Configuring snap${NO_COLOR}"
+  
+    sudo systemctl enable --now snapd.socket
+    sudo systemctl enable --now snapd.apparmor
+
+    sudo ln -s /var/lib/snapd/snap /snap
+}
+
+# REMOVE APPs
+remove_apps() {
+    echo -e "${GREEN}[INFO] - Removing selected apps${NO_COLOR}"
+  
+    sudo pacman -R --noconfirm "${REMOVE_APPS[@]}"
+}
+
+# SYSTEM CLEAN 
+system_clean(){
+    echo -e "${GREEN}[INFO] - Cleaning cache${NO_COLOR}"
+
+    sudo pacman -Rns $(pacman -Qqdt) --noconfirm && sudo pacman -Sc --noconfirm
+}
+
+# TRIM SSD
+ssd_trim(){
+    echo -e "${GREEN}[INFO] - SSD trimming${NO_COLOR}"
+    
+    sudo systemctl enable fstrim.timer --now
+}
+
+# PERSONAL CONFIGURATION FILES
+personal_configs(){
+    echo -e "${GREEN}[INFO] - Copying personal configuration files${NO_COLOR}"
+
+    unzip configs.zip
+
+    sudo cp -rf fonts/ "$HOME/.fonts"
+    sudo cp -rf config/ "$HOME/.config"
+}
+
+# RELOAD FONTS CACHE
+reload_fonts_cache(){
+    echo -e "${GREEN}[INFO] - Reloading fonts cache${NO_COLOR}"
+    
+    sudo fc-cache -f
+}
+
+# CREATE ALIASES
+create_aliases(){
+cat >>"$HOME/.bashrc" << EOF
+# PERSONAL ALIASES
+alias updf="sudo pacman -Syu && flatpak update -y && sudo snap refresh"
+alias updc="sudo pacman -Sc"
+alias fdns="resolvectl flush-caches"
+
+# LSD 
+if [ -x "$(command -v lsd)" ]; then
+alias ls="lsd"
+fi
+
+EOF
+
+}
+
+# RUNNING SCRIPT
+
+internet_test
+fast_mirror
+update_repositories
+install_pacman_packages
+install_flatpak_apps
+config_snap
+install_snap_apps
+remove_apps
+system_clean
+ssd_trim
+personal_configs
+reload_fonts_cache
+create_aliases
+
+# Ending
+echo -e "${GREEN}[INFO] - Script completed, reboot the system! :)${NO_COLOR}"
+exit
