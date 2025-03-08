@@ -9,21 +9,21 @@
 This is a **post installation** shell script set up for my personal use, you can use it or edit it for your own use.
 <hr>
 
-## How to run on Linux
+## How to run
 To get started, download the script:
 ```bash
 # wget
-$ wget https://raw.githubusercontent.com/jeanrodrigop/postInstall/main/postinstall.sh
+$ wget https://github.com/jeanrodrigop/postInstall/archive/refs/heads/main.zip && unzip main.zip
 ```
-Change permission to execute:
+Choose the directory of the installed system and change permission to execute:
 ```bash
 # bash
 $ sudo chmod +x postinstall.sh
 ```
-Then the script:
+Then run the script:
 ```bash
 # bash
-$ sudo bash ./postinstall.sh
+$ sudo ./postinstall.sh
 ```
 <hr>
 
