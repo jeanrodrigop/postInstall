@@ -11,7 +11,7 @@ This is a **post installation** shell script set up for my personal use, you can
 
 ```bash
 # bash
-sudo chmod +x manjaro-cinnamon.sh && sudo ./manjaro-cinnamon.sh
+sudo chmod +x manjaro-cinnamon.sh && ./manjaro-cinnamon.sh
 ```
 <hr>
 
