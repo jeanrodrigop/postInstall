@@ -61,6 +61,7 @@ PACMAN_APPS=(
     steam
     lutris
     discord
+    ttf-montserrat
     ttf-firacode-nerd
     ttf-cascadia-code-nerd
     ttf-meslo-nerd-font-powerlevel10k
@@ -140,12 +141,7 @@ ssd_trim(){
 personal_configs(){
     echo -e "${GREEN}[INFO] - Copying personal configuration files${NO_COLOR}"
 
-    unzip configs.zip > /dev/null 2>> error.log
-
-    mkdir $HOME/.fonts
-
-    sudo cp -rf configs/fonts/* $HOME/.fonts
-    sudo cp -rf configs/config/* $HOME/.config
+    cat configs/plasma-org.kde.plasma.desktop-appletsrc > $HOME/.config/plasma-org.kde.plasma.desktop-appletsrc
 }
 
 # RELOAD FONTS CACHE

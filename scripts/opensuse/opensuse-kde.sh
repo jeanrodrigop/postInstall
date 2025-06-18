@@ -157,14 +157,6 @@ ssd_trim(){
     sudo systemctl enable fstrim.timer --now > /dev/null 2>> error.log
 }
 
-# PERSONAL CONFIGURATION FILES
-personal_configs(){
-    echo -e "${GREEN}[INFO] - Copying personal configuration files${NO_COLOR}"
-
-    sudo cp -rf .fonts $HOME/.fonts
-    sudo cp -rf .fonts /root/.fonts
-}
-
 # RELOAD FONTS CACHE
 reload_fonts_cache(){
     echo -e "${GREEN}[INFO] - Reloading fonts cache${NO_COLOR}"
@@ -197,7 +189,6 @@ install_repo_packages
 install_flatpak_apps
 system_clean
 ssd_trim
-personal_configs
 reload_fonts_cache
 create_aliases
 rpm_install
