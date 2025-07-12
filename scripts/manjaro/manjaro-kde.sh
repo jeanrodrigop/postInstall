@@ -52,6 +52,7 @@ PACMAN_APPS=(
     vim
     vlc
     unrar
+    vlc-plugins-all
     kdenlive
     obs-studio
     7zip
