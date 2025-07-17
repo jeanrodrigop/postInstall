@@ -71,6 +71,7 @@ PACMAN_APPS=(
 # FLATPAK PACKAGES
 FLATPAK_APPS=(
     com.google.Chrome
+    net.codelogistics.webapps
 )
 
 # LIST PACKAGES TO REMOVE
