@@ -43,26 +43,28 @@ update_repositories() {
 # LIST PACKAGES TO INSTALL
 # REPO PACKAGES
 PACMAN_APPS=(
-    snapd
-    loupe
-    fastfetch
-    gparted
-    htop
     git
     vim
     vlc
-    unrar
-    vlc-plugins-all
-    kdenlive
-    obs-studio
-    7zip
-    easyeffects
     lsd
+    ncdu
+    htop
+    btop
+    7zip
     tmux
     steam
+    snapd
+    loupe
+    unrar
     lutris
     discord
+    gparted
+    kdenlive
+    fastfetch
+    obs-studio
+    easyeffects
     ttf-montserrat
+    vlc-plugins-all
     ttf-firacode-nerd
     ttf-cascadia-code-nerd
     ttf-meslo-nerd-font-powerlevel10k
@@ -71,6 +73,7 @@ PACMAN_APPS=(
 # AUR PACKAGES
 PAMAC_APPS=(
     google-chrome
+    warp-terminal-bin
     visual-studio-code-bin
 )
 
