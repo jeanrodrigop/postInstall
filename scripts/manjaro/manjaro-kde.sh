@@ -59,6 +59,7 @@ PACMAN_APPS=(
     lutris
     discord
     gparted
+    obsidian
     kdenlive
     fastfetch
     obs-studio
