@@ -59,6 +59,7 @@ PACMAN_APPS=(
     lutris
     discord
     gparted
+    obsidian
     kdenlive
     fastfetch
     obs-studio
@@ -72,6 +73,7 @@ PACMAN_APPS=(
 
 # AUR PACKAGES
 PAMAC_APPS=(
+    anydesk-bin
     google-chrome
     warp-terminal-bin
     visual-studio-code-bin
