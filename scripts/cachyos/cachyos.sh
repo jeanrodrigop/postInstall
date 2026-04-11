@@ -4,7 +4,7 @@
 #  Author: Jean Rodrigo
 #  ----------------------------------------------------
 #  HOW TO USE?
-#  $ sudo chmod +x manjaro-kde.sh && ./manjaro-kde.sh
+#  $ sudo chmod +x cachyos.sh && ./cachyos.sh
   
 # VARIABLES
 set -e
@@ -26,52 +26,32 @@ internet_test() {
     fi
 }
 
-# MIRROR CONFIGURATION
-fast_mirror() {
-    echo -e "${GREEN}[INFO] - Setting fastest mirrors${NO_COLOR}"
-
-    (sudo pacman-mirrors --fasttrack 5 && sudo pacman-mirrors --geoip) > /dev/null 2>> error.log
-}
-
-# UPDATE AND UPGRADE
-update_repositories() {
-    echo -e "${GREEN}[INFO] - Applying update and upgrade${NO_COLOR}"
-    
-    (sudo pacman -Sy archlinux-keyring --noconfirm && sudo pacman -Syyu --noconfirm) > /dev/null 2>> error.log
-}
-
 # LIST PACKAGES TO INSTALL
 # REPO PACKAGES
 PACMAN_APPS=(
-    git
-    vim
     vlc
     lsd
     ncdu
     htop
-    btop
     7zip
     tmux
-    steam
-    snapd
+    kget
     loupe
-    unrar
     lutris
     discord
     gparted
     kdenlive
-    fastfetch
     obs-studio
+    qbittorrent
     easyeffects
     ttf-montserrat
     vlc-plugins-all
     ttf-firacode-nerd
     ttf-cascadia-code-nerd
-    ttf-meslo-nerd-font-powerlevel10k
 )
 
 # AUR PACKAGES
-PAMAC_APPS=(
+PARU_APPS=(
     anydesk-bin
     google-chrome
     visual-studio-code-bin
@@ -84,8 +64,11 @@ FLATPAK_APPS=(
 
 # LIST PACKAGES TO REMOVE
 REMOVE_APPS=(
+    meld
+    micro
+    haruna
+    alacritty
     gwenview
-    elisa
     firefox
 )
 
@@ -98,10 +81,10 @@ install_pacman_packages() {
 
 
 # INSTALLING PACKAGES FROM AUR
-install_pamac_packages() {
-    echo -e "${GREEN}[INFO] - Installing packages with pamac${NO_COLOR}"
+install_paru_packages() {
+    echo -e "${GREEN}[INFO] - Installing packages with paru${NO_COLOR}"
   
-    pamac install --noconfirm "${PAMAC_APPS[@]}" > /dev/null 2>> error.log
+    paru -S --noconfirm "${PARU_APPS[@]}" > /dev/null 2>> error.log
 }
 
 # INSTALLING PACKAGES FROM FLATPAK
@@ -115,25 +98,6 @@ install_flatpak_apps() {
     done
 }
 
-# SNAP CONFIG
-config_snap() {
-    echo -e "${GREEN}[INFO] - Configuring snap${NO_COLOR}"
-
-    sudo systemctl enable --now snapd.socket > /dev/null 2>> error.log
-    sudo systemctl enable --now snapd.apparmor > /dev/null 2>> error.log
-    sudo systemctl enable --now snapd.service > /dev/null 2>> error.log
-    sudo systemctl restart snapd > /dev/null 2>> error.log
-
-    sudo ln -s /var/lib/snapd/snap /snap > /dev/null 2>> error.log
-}
-
-# INSTALLING PACKAGES FROM SNAP
-install_snap_apps() {
-    echo -e "${GREEN}[INFO] - Installing snap packages${NO_COLOR}"
-
-    #sudo snap install code --classic > /dev/null 2>> error.log
-}
-
 # REMOVE APPs
 remove_apps() {
     echo -e "${GREEN}[INFO] - Removing selected apps${NO_COLOR}"
@@ -145,7 +109,7 @@ remove_apps() {
 system_clean(){
     echo -e "${GREEN}[INFO] - Cleaning cache${NO_COLOR}"
 
-    (sudo pacman -Rns $(pacman -Qqdt) --noconfirm && sudo pacman -Sc --noconfirm) > /dev/null 2>> error.log
+    (sudo pacman -Rns $(pacman -Qqdt) --noconfirm || true && sudo pacman -Sc --noconfirm) > /dev/null 2>> error.log
 }
 
 # TRIM SSD
@@ -153,13 +117,6 @@ ssd_trim(){
     echo -e "${GREEN}[INFO] - SSD trimming${NO_COLOR}"
     
     sudo systemctl enable fstrim.timer --now > /dev/null 2>> error.log
-}
-
-# PERSONAL CONFIGURATION FILES
-personal_configs(){
-    echo -e "${GREEN}[INFO] - Copying personal configuration files${NO_COLOR}"
-
-    cat configs/plasma-org.kde.plasma.desktop-appletsrc > $HOME/.config/plasma-org.kde.plasma.desktop-appletsrc
 }
 
 # RELOAD FONTS CACHE
@@ -193,17 +150,12 @@ EOF
 # RUNNING SCRIPT
 
 internet_test
-fast_mirror
-update_repositories
 install_pacman_packages
-install_pamac_packages
+install_paru_packages
 #install_flatpak_apps
-config_snap
-#install_snap_apps
 remove_apps
 system_clean
 ssd_trim
-personal_configs
 reload_fonts_cache
 create_aliases
 
